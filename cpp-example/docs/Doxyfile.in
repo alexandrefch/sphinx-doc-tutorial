@@ -1,0 +1,10 @@
+# Doxyfile 1.8.17
+
+PROJECT_NAME           = "my_project"
+INPUT                  = ../include
+INPUT_ENCODING         = UTF-8
+RECURSIVE              = YES
+GENERATE_XML           = YES
+XML_OUTPUT             = build/doxyxml
+GENERATE_LATEX         = NO
+GENERATE_HTML          = NO
