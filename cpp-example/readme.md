@@ -7,11 +7,11 @@
 ## :wrench: Dependencies installation
 
 ```sh
-pip3 install sphinx breathe
+pip3 install sphinx breathe exhale
 sudo apt-get install doxygen
 ```
 
-## :rocket: Compile documentation
+## :rocket: Générer la documentation
 
 ```sh
 cd docs
