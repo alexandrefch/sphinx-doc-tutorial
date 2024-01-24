@@ -84,3 +84,6 @@ The best way is to go in `source/index.rst` and add `api/library_root` as an ent
 
 Inside the `docs` directory you can now execute `make html` !
 You can acces it through `docs/build/html/index.html`.
+
+> :warning: **Warning**
+> Do not store the `build` folder in your remote storage, if you use `git` simply copy the `.gitignore` inside `cpp-example/docs` and paste it to your `docs` folder.
