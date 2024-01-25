@@ -1,6 +1,6 @@
 <div align="center">
 
-# Sphinx documentation from c/c++ doxygen doc
+# Sphinx documentation from python docstring
 
 </div>
 
@@ -8,8 +8,7 @@
 
 ```sh
 # Installing dependencies
-pip3 install sphinx sphinx_rtd_theme breathe exhale
-sudo apt-get install doxygen
+pip3 install sphinx sphinx_rtd_theme
 
 # Generating documentation
 cd docs
@@ -48,23 +47,22 @@ my_project/
 **2. Edit sphinx config**
 
 And lastly you need to copy the next script at the end of the `conf.py` file.
-This script add the needed configuration to allow sphinx to generate the documentation from doxygen documentation inside `.h`,`.c`,`.cpp`,`.hpp`... (You don't need to change anything in the next configuration)
+This script add the needed configuration to allow sphinx to generate the documentation from the docstring inside all your `.py` files.
+(You don't need to change anything in the next configuration)
 
 ```py
-extensions += ['breathe','exhale']
+import os
+import sys
+sys.path.insert(0, os.path.abspath('../..'))
+print(os.path.abspath('../..'))
 
-breathe_projects = {"My Project": "../build/_doxygen/xml"}
-breathe_default_project = "My Project"
+extensions += [
+    'sphinx.ext.napoleon',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary'
+]
 
-exhale_args = {
-    "containmentFolder":     "./api",
-    "rootFileName":          "library_root.rst",
-    "doxygenStripFromPath":  "..",
-    "rootFileTitle":         "Library API",
-    "createTreeView":        True,
-    "exhaleExecutesDoxygen": True,
-    "exhaleDoxygenStdin":    "INPUT = ../../include"
-}
+autosummary_generate = True
 ```
 
 **3. Link the doc to a toctree**
@@ -73,12 +71,15 @@ Now you need to link the documentation somewhere in your sphinx `rst` file.
 The best way is to go in `source/index.rst` and add `api/library_root` as an entry of the toctree.
 
 ```css
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+.. autosummary::
+    :toctree: api
+    :recursive:
 
-   api/library_root
+    <source_directory>
 ```
+
+> **Info**
+> In our case `<source_directory>` is `pyexample`
 
 **4. Now you can generate !**
 
@@ -86,4 +87,4 @@ Inside the `docs` directory you can now execute `make html` !
 You can acces it through `docs/build/html/index.html`.
 
 > **Warning**
-> Do not store the `build` folder in your remote storage, if you use `git` simply copy the `.gitignore` inside `cpp-example/docs` and paste it to your `docs` folder.
+> Do not store the `build` folder in your remote storage, if you use `git` simply copy the `.gitignore` inside `py-example/docs` and paste it to your `docs` folder.
